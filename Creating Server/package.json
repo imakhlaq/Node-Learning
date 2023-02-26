@@ -1,0 +1,20 @@
+{
+  "name": "backend-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imakhlaq/Node-Learning.git"
+  },
+  "author": "akhlaq Ahmad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imakhlaq/Node-Learning/issues"
+  },
+  "homepage": "https://github.com/imakhlaq/Node-Learning#readme"
+}
