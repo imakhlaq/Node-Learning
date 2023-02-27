@@ -17,6 +17,7 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
   if (url === "/message" && method === "POST") {
+    fs.writeFileSync("data.txt", "message");
   }
 });
 
