@@ -20,6 +20,5 @@ const server = http.createServer((req, res) => {
     fs.writeFileSync("data.txt", "message");
   }
 });
-
 //listening for req
 server.listen(3001);
