@@ -17,6 +17,16 @@ const server = http.createServer((req, res) => {
     return res.end();
   }
   if (url === "/message" && method === "POST") {
+    //for collecting chunks
+    const body = [];
+    //listing for chunks
+    req.on("data", (chunk) => {
+      body.push(chunk);
+    });
+
+    //listing for end of data
+    req.on("end", () => {});
+
     fs.writeFileSync("data.txt", "message");
   }
 });
