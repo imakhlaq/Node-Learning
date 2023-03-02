@@ -27,6 +27,8 @@ const server = http.createServer((req, res) => {
     //listing for end of data
     req.on("end", () => {});
 
+    //for writing data in file
+
     fs.writeFileSync("data.txt", "message");
   }
 });
