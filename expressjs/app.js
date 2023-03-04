@@ -3,6 +3,8 @@ import express from "express";
 
 const app = express();
 
-const server = http.createServer();
+app.use((req, res, next) => {});
+
+const server = http.createServer(app);
 
 server.listen(3001);
