@@ -2,6 +2,10 @@ import express from "express";
 
 const app = express();
 
+//parsing body for every request
+
+app.use(express.urlencoded());
+
 app.use("/", (req, res, next) => {
   console.log("hello");
   next();
