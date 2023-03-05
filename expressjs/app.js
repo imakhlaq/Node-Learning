@@ -1,10 +1,14 @@
-import http from "http";
 import express from "express";
 
 const app = express();
 
-app.use((req, res, next) => {});
+app.use((req, res, next) => {
+  console.log("hello");
 
-const server = http.createServer(app);
+  next();
+});
+app.use((req, res, next) => {
+  res.send("<h1>Express</h1>");
+});
 
-server.listen(3001);
+app.listen(3001);
