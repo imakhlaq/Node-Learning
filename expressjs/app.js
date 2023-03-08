@@ -1,26 +1,30 @@
 import express from "express";
+import fs from "fs";
 
 const app = express();
 
 //parsing body for every request
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
-app.use("/add-products", (req, res) => {
+app.get("/add-products", (req, res) => {
   res.send(
-    "<form action='/products' method='POST'><input type='text' name='tittle'><button type='submit'>Submit</button></form>"
+    "<form action='/products' method='POST'><input type='text' name='title'><button type='submit'>Submit</button></form>"
   );
 });
 
-app.use("/products", (req, res, next) => {
-  res.send("<h1>Express</h1>");
+app.post("/products", (req, res, next) => {
+  const body = req.body;
+  console.log(body);
+
+  res.redirect("/");
 });
 
-app.use("/", (req, res, next) => {
-  console.log("hello");
+app.get("/", (req, res, next) => {
+  res.send("<h1>Express</h1>");
 });
 
 //listing
 app.listen(3001, () => {
-  console.log("server start");
+  console.log("server start on http://localhost:3001/");
 });
