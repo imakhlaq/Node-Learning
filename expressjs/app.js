@@ -6,14 +6,21 @@ const app = express();
 
 app.use(express.urlencoded());
 
-app.use("/", (req, res, next) => {
-  console.log("hello");
-  next();
+app.use("/add-products", (req, res) => {
+  res.send(
+    "<form action='/products' method='POST'><input type='text' name='tittle'><button type='submit'>Submit</button></form>"
+  );
 });
 
 app.use("/products", (req, res, next) => {
   res.send("<h1>Express</h1>");
 });
 
+app.use("/", (req, res, next) => {
+  console.log("hello");
+});
+
 //listing
-app.listen(3001);
+app.listen(3001, () => {
+  console.log("server start");
+});
