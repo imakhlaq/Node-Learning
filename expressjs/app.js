@@ -21,7 +21,7 @@ app.post("/products", (req, res, next) => {
 });
 
 app.get("/", (req, res, next) => {
-  res.send("<h1>Express</h1>");
+  res.send("<h1>My Shopping app</h1>");
 });
 
 //listing
