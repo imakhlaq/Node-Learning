@@ -1,5 +1,6 @@
 import express from "express";
-import fs from "fs";
+import adminRoutes from "./routes/admin";
+import shopRoutes from "./routes/shop";
 
 const app = express();
 
@@ -7,21 +8,12 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/add-products", (req, res) => {
-  res.send(
-    "<form action='/products' method='POST'><input type='text' name='title'><button type='submit'>Submit</button></form>"
-  );
-});
+app.use(adminRoutes);
+app.use(shopRoutes);
 
-app.post("/products", (req, res, next) => {
-  const body = req.body;
-  console.log(body);
-
-  res.redirect("/");
-});
-
-app.get("/", (req, res, next) => {
-  res.send("<h1>My Shopping app</h1>");
+//handling 404
+app.use((req, res) => {
+  res.status(404).send(<h1>not found</h1>);
 });
 
 //listing
