@@ -1,6 +1,6 @@
 import express from "express";
-import adminRoutes from "./routes/admin";
-import shopRoutes from "./routes/shop";
+import adminRoutes from "./routes/admin.js";
+import shopRoutes from "./routes/shop.js";
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.use(shopRoutes);
 
 //handling 404
 app.use((req, res) => {
-  res.status(404).send(<h1>not found</h1>);
+  res.status(404).send("<h1>not found</h1>");
 });
 
 //listing
