@@ -9,10 +9,10 @@ const __dirname = path.resolve();
 
 //parsing body for every request
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
-//staticly serving files
-app.use(express.static(__dirname, "public"));
+//statically serving files
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
