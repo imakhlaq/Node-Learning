@@ -11,7 +11,9 @@ const router = express.Router();
 export const products = [{ title: "the book of nodes" }];
 
 router.get("/add-product", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "add-product.html"));
+  //res.sendFile(path.join(__dirname, "views", "add-product.html"));
+
+  res.render("add-product", { title: "Add Product" });
 });
 
 router.post("/add-product", (req, res, next) => {

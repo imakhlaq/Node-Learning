@@ -6,7 +6,7 @@ import path from "path";
 const app = express();
 
 //tempting engin
-app.set("view engine", "pug");
+app.set("view engine", "ejs");
 
 const __dirname = path.resolve();
 
@@ -21,7 +21,8 @@ app.use(shopRoutes);
 
 //handling 404
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  // res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.status(404).render("404", { pagetitle: "Page Not Found" });
 });
 
 //listing
