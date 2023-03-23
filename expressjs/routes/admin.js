@@ -8,14 +8,14 @@ const __dirname = path.resolve();
 const router = express.Router();
 
 //for storing data
-export const products = [];
+export const products = [{ title: "the book of nodes" }];
 
 router.get("/add-product", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "add-product.html"));
 });
 
 router.post("/add-product", (req, res, next) => {
-  products.push({ title: req.body });
+  products.push({ title: req.body.title });
 
   res.redirect("/");
 });

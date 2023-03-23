@@ -5,10 +5,12 @@ import path from "path";
 
 const app = express();
 
+//tempting engin
+app.set("view engine", "pug");
+
 const __dirname = path.resolve();
 
 //parsing body for every request
-
 app.use(express.urlencoded({ extended: true }));
 
 //statically serving files
