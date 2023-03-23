@@ -10,7 +10,6 @@ const router = express.Router();
 //for storing data
 export const products = [];
 
-console.log(path.join(__dirname, "views", "add-product.html"));
 router.get("/add-product", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "add-product.html"));
 });
