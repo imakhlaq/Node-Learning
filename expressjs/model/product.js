@@ -15,11 +15,11 @@ export class Product {
 
     try {
       products = await readFile(p);
-      //if their is no error the retriving data from file
+      //if their is no error the retrieving data from file
       products = JSON.parse(products);
-      console.log(products);
+
     } catch (err) {
-      console.log(products);
+      console.log(err);
     } finally {
       products.push({ title: this.item });
     }
