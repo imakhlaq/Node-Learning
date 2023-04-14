@@ -1,23 +1,41 @@
 import fs from "fs";
 import path from "path";
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 //for storing data
-export const products = [{ title: "the book of nodes" }];
+const __dirname = path.resolve();
+//creating file
+const p = path.join(__dirname, "data", "products.json");
 
 export class Product {
   constructor(item) {
     this.item = item;
   }
   save() {
-    const p = path.join(
-      path.dirname(require.main.filename),
-      "data",
-      "products.json"
-    );
-    
+    fs.readFile(p, (err, fileContent) => {
+      let products = [];
 
-    products.push({ title: this.item });
+      //if their is no error the retriving data from file
+      if (!err) {
+        products = JSON.parse(fileContent);
+      }
+      products.push({ title: this.item });
+
+      //saving in file
+      fs.writeFile(p, JSON.stringify(products), (err) => {
+        console.log(err);
+      });
+    });
   }
   static fetchAll() {
-    return products;
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        return [];
+      }
+
+      return JSON.parse(fileContent);
+    });
   }
 }
