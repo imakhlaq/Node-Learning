@@ -1,16 +1,15 @@
 import express from "express";
 import path from "path";
-
-import { products } from "../controllers/products.js";
+import { Product } from "../model/product.js";
 
 const router = express.Router();
-
 const __dirname = path.resolve();
 
 router.get("/", (req, res, next) => {
-  // console.log(products);
   //sending file
   // res.sendFile(path.join(__dirname, "views", "shop.html"));
+
+  const products = Product.fetchAll();
   console.log(products);
 
   //sending pug file instead of HTMl

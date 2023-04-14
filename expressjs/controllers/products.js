@@ -1,5 +1,4 @@
-//for storing data
-export const products = [{ title: "the book of nodes" }];
+import { Product } from "../model/product.js";
 
 export const getProduct = (req, res) => {
   //res.sendFile(path.join(__dirname, "views", "add-product.html"));
@@ -8,7 +7,7 @@ export const getProduct = (req, res) => {
 };
 
 export const addProduct = (req, res, next) => {
-  products.push({ title: req.body.title });
-
+  const product = new Product(req.body.title);
+  product.save();
   res.redirect("/");
 };
