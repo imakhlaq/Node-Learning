@@ -12,7 +12,7 @@ router.get("/", async (req, res, next) => {
   const products = await Product.fetchAll();
 
   //sending pug file instead of HTMl
-  res.render("shop", { products, doctitle: "shop" });
+  res.render("shop/product-list", { products, doctitle: "shop" });
 });
 
 export default router;
