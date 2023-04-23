@@ -7,8 +7,12 @@ const __dirname = path.resolve();
 const p = path.join(__dirname, "data", "products.json");
 
 export class Product {
-  constructor(item) {
-    this.item = item;
+  constructor(details) {
+    // this.title = details.title;
+    // this.price = details.price;
+    // this.imageUrl = details.imageUrl;
+    // this.description = details.description;
+    this.details = { ...details };
   }
   async save() {
     let products = [];
@@ -17,11 +21,11 @@ export class Product {
       products = await readFile(p);
       //if their is no error the retrieving data from file
       products = JSON.parse(products);
-
     } catch (err) {
       console.log(err);
     } finally {
-      products.push({ title: this.item });
+      console.log(this.details);
+      products.push(this.details);
     }
 
     //saving in file
