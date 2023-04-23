@@ -16,3 +16,10 @@ export const products = async (req, res, next) => {
   const products = await Product.fetchAll();
   res.render("shop/product-list", { path: "cart", products, path: "products" });
 };
+
+export const productDetails = (req, res, next) => {
+  const prodId = req.params.productId;
+  console.log(prodId);
+
+  res.redirect("/");
+};
