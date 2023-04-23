@@ -12,7 +12,7 @@ export class Product {
     // this.price = details.price;
     // this.imageUrl = details.imageUrl;
     // this.description = details.description;
-    this.details = { ...details };
+    this.details = { ...details, id: Math.random().toString() };
   }
   async save() {
     let products = [];
