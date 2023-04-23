@@ -26,11 +26,17 @@
             />
           </div>
           <div class="card__content">
-            <h2 class="product__price"><%= pro.price %></h2>
+            <h2 class="product__price">$ <%= pro.price %></h2>
             <p class="product__description"><%= pro.description %></p>
           </div>
           <div class="card__actions">
-            <button class="btn">Add to Cart</button>
+            <!-- because we are doing POST request -->
+            <form action="/admin/edit" method="POST">
+              <button class="btn">Edit</button>
+            </form>
+            <form action="/admin/edit" method="POST">
+              <button class="btn">Delete</button>
+            </form>
           </div>
         </article>
         <% } %>
