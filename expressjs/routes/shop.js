@@ -15,4 +15,7 @@ router.get("/", async (req, res, next) => {
   res.render("shop/product-list", { products, doctitle: "shop" });
 });
 
+router.get("/cart");
+router.get("/checkout");
+
 export default router;
