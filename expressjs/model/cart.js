@@ -16,11 +16,14 @@ export class Cart {
     } catch (err) {
       console.log(err);
     } finally {
-      cart.products.forEach((pro) => {
-        if (pro.id === id) {
-          pro.quantity++;
+      //finding the index
+      const existingIndex = cart.products.findIndex((pro) => pro.id === id);
+
+        if(existingIndex){
+            
+            cart[existingIndex]={...cart[existingIndex],qty}
         }
-      });
+
 
       //writing back in the file
       await writeFile(p, JSON.stringify(cart));
