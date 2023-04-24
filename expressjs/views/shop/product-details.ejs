@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/product.css" />
-    <title><%- prodDetails.title %></title>
+    <title><%= prodDetails.title %></title>
   </head>
   <body>
     <%- include("../layouts/header.ejs") %>
-
-    <h1><%- prodDetails.title %></h1>
+    <main class="centered">
+      <img
+        src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png"
+        alt="<%= prodDetails.title %>"
+      />
+      <h1><%= prodDetails.title %></h1>
+      <h2>$ <%= prodDetails.price %></h2>
+      <p><%= prodDetails.description %></p>
+    </main>
   </body>
 </html>
