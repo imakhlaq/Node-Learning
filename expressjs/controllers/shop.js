@@ -1,7 +1,14 @@
 import { Product } from "../model/product.js";
 
-export const cart = (req, res, next) => {
+export const getCart = (req, res, next) => {
   res.render("shop/cart", { path: "cart" });
+};
+
+export const postCart = (req, res, next) => {
+  const prodId = req.body.prodId;
+  console.log(prodId);
+
+  res.redirect("/cart");
 };
 
 export const index = async (req, res, next) => {

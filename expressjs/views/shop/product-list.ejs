@@ -31,8 +31,11 @@
           </div>
           <div class="card__actions">
             <a href="/products/<%= pro.id %>" class="btn">Details</a>
-            <form action="/add-to-cart" method="POST">
-              <button class="btn">Add to Cart</button>
+            <form action="/cart" method="POST">
+              <button class="btn" type="submit">Add to Cart</button>
+
+              <!-- this will be hidden but will be part of request and value will be sent to the backend -->
+              <input type="hidden" name="prodId" value="<%= pro.id %>" />
             </form>
           </div>
         </article>
