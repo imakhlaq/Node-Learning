@@ -44,4 +44,12 @@ export class Product {
     }
     return JSON.parse(fileContent);
   }
+  static async findMyProduct(id) {
+    const fileContent = await readFile(p);
+    const products = JSON.parse(fileContent);
+
+    const prod = products.find((prod) => prod.id === id);
+
+    return prod;
+  }
 }

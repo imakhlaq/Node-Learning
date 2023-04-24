@@ -9,7 +9,7 @@ export const adminProducts = async (req, res, next) => {
   //sending pug file instead of HTMl
   res.render("admin/products", {
     products,
-    doctitle: "shop",
+    docTitle: "shop",
     path: "adminProducts",
   });
 };

@@ -17,9 +17,11 @@ export const products = async (req, res, next) => {
   res.render("shop/product-list", { path: "cart", products, path: "products" });
 };
 
-export const productDetails = (req, res, next) => {
+export const productDetails = async (req, res, next) => {
+  //extracting the book id
   const prodId = req.params.productId;
-  console.log(prodId);
 
-  res.redirect("/");
+  const prodDetails = await Product.findMyProduct(prodId);
+
+  res.render("shop/product-details", { prodDetails, path: "details" });
 };
