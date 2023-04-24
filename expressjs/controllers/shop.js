@@ -1,4 +1,5 @@
 import { Product } from "../model/product.js";
+import { Cart } from "../model/cart.js";
 
 export const getCart = (req, res, next) => {
   res.render("shop/cart", { path: "cart" });
@@ -6,7 +7,8 @@ export const getCart = (req, res, next) => {
 
 export const postCart = (req, res, next) => {
   const prodId = req.body.prodId;
-  console.log(prodId);
+ 
+  Cart.addProduct(prodId);
 
   res.redirect("/cart");
 };
