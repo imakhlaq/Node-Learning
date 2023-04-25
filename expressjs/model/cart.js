@@ -7,7 +7,7 @@ const __dirname = path.resolve();
 const p = path.join(__dirname, "data", "cart.json");
 
 export class Cart {
-  static async addProduct(id) {
+  static async addProduct(id, price) {
     let cart = { products: [], totalPrice: 0 };
 
     try {
@@ -19,11 +19,14 @@ export class Cart {
       //finding the index
       const existingIndex = cart.products.findIndex((pro) => pro.id === id);
 
-        if(existingIndex){
-            
-            cart[existingIndex]={...cart[existingIndex],qty}
-        }
-
+      if (existingIndex >= 0) {
+        let { qty } = cart.products[existingIndex];
+        qty++;
+        cart.products[existingIndex] = { ...cart.products[existingIndex], qty };
+      } else {
+        cart.products.push({ id, qty: 1 });
+      }
+      cart.totalPrice += +price;
 
       //writing back in the file
       await writeFile(p, JSON.stringify(cart));
