@@ -31,10 +31,10 @@
           </div>
           <div class="card__actions">
             <!-- because we are doing POST request -->
-            <form action="/admin/edit" method="POST">
+            <form action="/admin/edit-products/<%= pro.id %>" method="GET">
               <button class="btn">Edit</button>
             </form>
-            <form action="/admin/edit" method="POST">
+            <form action="/admin" method="POST">
               <button class="btn">Delete</button>
             </form>
           </div>

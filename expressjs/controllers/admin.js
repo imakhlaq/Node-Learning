@@ -1,5 +1,16 @@
 import { Product } from "../model/product.js";
-export const editProducts = (req, res, next) => {
+
+export const editProducts = async (req, res, next) => {
+  const prodId = req.params.prodId;
+  const data = await Product.fetchAll();
+  const [product] = data.filter((prod) => prod.id == prodId);
+
+  res.render("admin/edit-product", { path: "edit-products", product });
+};
+
+export const updateProducts = async (req, res, next) => {
+  const prodId = req.params.prodId;
+
   res.render("admin/edit-product");
 };
 
@@ -13,3 +24,4 @@ export const adminProducts = async (req, res, next) => {
     path: "adminProducts",
   });
 };
+ 
