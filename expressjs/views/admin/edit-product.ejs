@@ -14,11 +14,7 @@
     <%- include("../layouts/header.ejs") %>
 
     <main>
-      <form
-        class="product-form"
-        action="/edit-products/<%= product.id %>"
-        method="POST"
-      >
+      <form class="product-form" action="<%= product.id %>" method="POST">
         <div class="form-control">
           <label for="title">Title</label>
           <input

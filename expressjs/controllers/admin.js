@@ -1,4 +1,5 @@
 import { Product } from "../model/product.js";
+import { Admin } from "../model/admin.js";
 
 export const editProducts = async (req, res, next) => {
   const prodId = req.params.prodId;
@@ -11,7 +12,11 @@ export const editProducts = async (req, res, next) => {
 export const updateProducts = async (req, res, next) => {
   const prodId = req.params.prodId;
 
-  res.render("admin/edit-product");
+  const data = req.body;
+
+  Admin.editProduct(prodId, data);
+
+  res.redirect("/admin/products");
 };
 
 export const adminProducts = async (req, res, next) => {
@@ -24,4 +29,11 @@ export const adminProducts = async (req, res, next) => {
     path: "adminProducts",
   });
 };
- 
+
+export const deleteProduct = async (req, res, next) => {
+  const id = req.params.prodId;
+
+  Admin.deleteProduct(id);
+
+  res.redirect("/admin/products");
+};
