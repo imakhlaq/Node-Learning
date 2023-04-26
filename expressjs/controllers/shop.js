@@ -1,8 +1,22 @@
 import { Product } from "../model/product.js";
 import { Cart } from "../model/cart.js";
 
-export const getCart = (req, res, next) => {
-  res.render("shop/cart", { path: "cart" });
+export const getCart = async (req, res, next) => {
+  const { products, totalPrice } = await Cart.getCart();
+
+  const prods = await Product.fetchAll();
+
+  const cartData = [];
+
+  for (let prod of prods) {
+    for (let cartProd of products) {
+      if (prod.id == cartProd.id) {
+        cartData.push({ ...prod, qty: cartProd.qty });
+      }
+    }
+  }
+
+  res.render("shop/cart", { path: "cart", totalPrice, cartData });
 };
 
 export const postCart = async (req, res, next) => {

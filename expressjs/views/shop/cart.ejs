@@ -9,5 +9,19 @@
   </head>
   <body>
     <%- include("../layouts/header.ejs") %>
+    <main>
+      <% if(cartData.length>0) { %>
+      <ul>
+        <% cartData.forEach( p => { %>
+
+        <li><%=p.title %> (<%=p.qty %>)</li>
+
+        <% }) %>
+        <h2>$ <%= totalPrice %></h2>
+        <% } else { %>
+        <h2>No Products in Cart</h2>
+        <% } %>
+      </ul>
+    </main>
   </body>
 </html>

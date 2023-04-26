@@ -39,11 +39,16 @@ export class Admin {
       products = JSON.parse(fileContent);
 
       const prod = products.filter((prod) => prod.id != id);
+      const price = products.reduce((acc, prod) => {
+        if (prod.id == id) {
+          return (acc = prod.price);
+        }
+      }, 0);
 
       await writeFile(p, JSON.stringify(prod));
 
       //also delete from the cart
-      Cart.deleteFromCart(id);
+      Cart.deleteFromCart(id, price);
     }
   }
 }
