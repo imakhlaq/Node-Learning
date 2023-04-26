@@ -47,7 +47,7 @@ export class Cart {
         return prod;
       });
 
-      const newData = { products: updatedCart, totalAmt: cart.totalAmt };
+      const newData = { products: updatedCart, totalPrice: cart.totalPrice };
 
       await writeFile(p, JSON.stringify(newData));
     } catch (err) {
