@@ -8,7 +8,9 @@ export const getCart = (req, res, next) => {
 export const postCart = async (req, res, next) => {
   const prodId = req.body.prodId;
   const products = await Product.fetchAll();
-  const prod = products.find((pro) => pro.id === prodId);
+
+  const prod = products.find((pro) => pro.id == prodId);
+  console.log(prod);
   Cart.addProduct(prodId, prod.price);
 
   res.redirect("/cart");

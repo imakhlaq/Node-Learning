@@ -32,4 +32,26 @@ export class Cart {
       await writeFile(p, JSON.stringify(cart));
     }
   }
+  static async deleteFromCart(id, numberOfItems = 0) {
+    try {
+      const fileContent = await readFile(p);
+      const cart = JSON.parse(fileContent);
+
+      const updatedCart = cart.products.filter((prod) => {
+        if (prod.id === id && numberOfItems == 0) {
+          return false;
+        } else {
+          prod.qty--;
+        }
+
+        return prod;
+      });
+
+      const newData = { products: updatedCart, totalAmt: cart.totalAmt };
+
+      await writeFile(p, JSON.stringify(newData));
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

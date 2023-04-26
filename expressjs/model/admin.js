@@ -1,5 +1,6 @@
 import path from "path";
 import { readFile, writeFile } from "fs/promises";
+import { Cart } from "./cart.js";
 
 const __dirname = path.resolve();
 
@@ -40,6 +41,9 @@ export class Admin {
       const prod = products.filter((prod) => prod.id != id);
 
       await writeFile(p, JSON.stringify(prod));
+
+      //also delete from the cart
+      Cart.deleteFromCart(id);
     }
   }
 }
