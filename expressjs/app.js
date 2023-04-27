@@ -1,6 +1,7 @@
 import express from "express";
 import adminRoutes from "./routes/admin.js";
 import shopRoutes from "./routes/shop.js";
+import db from "./utils/database.js";
 import path from "path";
 
 const app = express();
