@@ -20,7 +20,7 @@ export const updateProducts = async (req, res, next) => {
 };
 
 export const adminProducts = async (req, res, next) => {
-  const products = await Product.fetchAll();
+  const products = await Product.findAll();
 
   //sending pug file instead of HTMl
   res.render("admin/products", {

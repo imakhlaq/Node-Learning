@@ -30,7 +30,6 @@ app.use((req, res) => {
 sequelize
   .sync()
   .then((res) => {
-    console.log(res);
     //listing
     app.listen(3001, () => {
       console.log("server start on http://localhost:3001/");

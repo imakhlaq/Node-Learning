@@ -1,5 +1,5 @@
 import { Product } from "../model/product.js";
-import { Cart } from "../model/cart.js";
+import Cart from "../model/cart.js";
 
 export const getCart = async (req, res, next) => {
   const { products, totalPrice } = await Cart.getCart();
@@ -39,7 +39,8 @@ export const index = async (req, res, next) => {
 };
 
 export const products = async (req, res, next) => {
-  const products = await Product.fetchAll();
+  const products = await Product.findAll();
+
   res.render("shop/product-list", { path: "cart", products, path: "products" });
 };
 

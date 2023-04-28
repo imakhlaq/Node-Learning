@@ -16,9 +16,7 @@ const __dirname = path.resolve();
 const router = express.Router();
 
 router.get("/add-product", getProduct);
-
 router.post("/add-product", addProduct);
-
 router.get("/edit-products/:prodId", editProducts);
 router.post("/edit-products/:prodId", updateProducts);
 router.get("/products", adminProducts);

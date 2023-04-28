@@ -1,6 +1,6 @@
 import path from "path";
 import { readFile, writeFile } from "fs/promises";
-import { Cart } from "./cart.js";
+import Cart from "./cart.js";
 
 const __dirname = path.resolve();
 

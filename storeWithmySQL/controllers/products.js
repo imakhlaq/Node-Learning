@@ -9,17 +9,20 @@ export const getProduct = (req, res) => {
   });
 };
 
-export const addProduct = (req, res, next) => {
+export const addProduct = async (req, res, next) => {
   const details = { ...req.body };
+  try {
+    const data = await Product.create({
+      title: details.title,
+      price: details.price,
+      imageUrl: details.imageUrl,
+      description: details.description,
+    });
 
-  Product.create({
-    title: details.title,
-    price: details.price,
-    imageUrl: details.imageUrl,
-    description: details.description,
-  })
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
 
   res.redirect("/");
 };
