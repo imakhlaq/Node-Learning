@@ -11,7 +11,15 @@ export const getProduct = (req, res) => {
 
 export const addProduct = (req, res, next) => {
   const details = { ...req.body };
-  const product = new Product(details);
-  product.save();
+
+  Product.create({
+    title: details.title,
+    price: details.price,
+    imageUrl: details.imageUrl,
+    description: details.description,
+  })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+
   res.redirect("/");
 };

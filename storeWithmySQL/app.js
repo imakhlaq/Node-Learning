@@ -1,7 +1,7 @@
 import express from "express";
 import adminRoutes from "./routes/admin.js";
 import shopRoutes from "./routes/shop.js";
-import db from "./utils/database.js";
+import sequelize from "./utils/database.js";
 import path from "path";
 
 const app = express();
@@ -26,7 +26,16 @@ app.use((req, res) => {
   res.status(404).render("404", { pagetitle: "Page Not Found", path: "404" });
 });
 
-//listing
-app.listen(3001, () => {
-  console.log("server start on http://localhost:3001/");
-});
+//this will create the tables when app initializes
+sequelize
+  .sync()
+  .then((res) => {
+    console.log(res);
+    //listing
+    app.listen(3001, () => {
+      console.log("server start on http://localhost:3001/");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
