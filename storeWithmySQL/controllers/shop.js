@@ -48,7 +48,7 @@ export const productDetails = async (req, res, next) => {
   //extracting the book id
   const prodId = req.params.productId;
 
-  const prodDetails = await Product.findMyProduct(prodId);
+  const prodDetails = await Product.findByPk(prodId);
 
   res.render("shop/product-details", { prodDetails, path: "details" });
 };

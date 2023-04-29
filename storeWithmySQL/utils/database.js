@@ -16,7 +16,6 @@ import { Sequelize } from "sequelize";
 const sequelize = new Sequelize("shop", "root", "sBCA", {
   dialect: "mysql",
   host: "localhost",
-  query: { raw: true },
 });
 
 export default sequelize;

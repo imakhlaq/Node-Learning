@@ -188,6 +188,9 @@ form {
   border-radius: 3px;
   cursor: pointer;
 }
+.image img {
+  height: 100%;
+}
 
 .btn:hover,
 .btn:active {

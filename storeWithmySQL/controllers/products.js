@@ -12,16 +12,22 @@ export const getProduct = (req, res) => {
 export const addProduct = async (req, res, next) => {
   const details = { ...req.body };
   try {
-    const data = await Product.create({
+    await req.user.createProduct({
       title: details.title,
       price: details.price,
       imageUrl: details.imageUrl,
       description: details.description,
     });
 
-    console.log(data);
+    // const data = await Product.create({
+    //   title: details.title,
+    //   price: details.price,
+    //   imageUrl: details.imageUrl,
+    //   description: details.description,
+    //   userID: req.user.id,
+    // });
   } catch (err) {
-    console.log(err);
+    console.log(err, "--------------------");
   }
 
   res.redirect("/");

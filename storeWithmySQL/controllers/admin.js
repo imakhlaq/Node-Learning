@@ -3,8 +3,8 @@ import { Admin } from "../model/admin.js";
 
 export const editProducts = async (req, res, next) => {
   const prodId = req.params.prodId;
-  const data = await Product.fetchAll();
-  const [product] = data.filter((prod) => prod.id == prodId);
+
+  const product = await Product.findByPk(prodId);
 
   res.render("admin/edit-product", { path: "edit-products", product });
 };
@@ -14,7 +14,22 @@ export const updateProducts = async (req, res, next) => {
 
   const data = req.body;
 
-  Admin.editProduct(prodId, data);
+  try {
+    await Product.update(
+      {
+        title: data.title,
+        price: data.price,
+        imageUrl: data.imageUrl,
+        description: data.description,
+      },
+      {
+        where: { id: prodId },
+      }
+    );
+    console.log("UPDATED");
+  } catch (err) {
+    console.log(err);
+  }
 
   res.redirect("/admin/products");
 };
@@ -33,7 +48,9 @@ export const adminProducts = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   const id = req.params.prodId;
 
-  Admin.deleteProduct(id);
+  await Product.destroy({
+    where: { id: id },
+  });
 
   res.redirect("/admin/products");
 };
