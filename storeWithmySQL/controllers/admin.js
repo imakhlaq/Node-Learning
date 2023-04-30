@@ -35,8 +35,7 @@ export const updateProducts = async (req, res, next) => {
 };
 
 export const adminProducts = async (req, res, next) => {
-  const products = await Product.findAll();
-
+  const products = await req.user.getProducts();
   //sending pug file instead of HTMl
   res.render("admin/products", {
     products,
