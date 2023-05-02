@@ -21,10 +21,7 @@ export const getCart = async (req, res, next) => {
 
 export const postCart = async (req, res, next) => {
   const prodId = req.body.prodId;
-  const products = await Product.fetchAll();
-
-  const prod = products.find((pro) => pro.id == prodId);
-
+  
   Cart.addProduct(prodId, prod.price);
 
   res.redirect("/cart");
