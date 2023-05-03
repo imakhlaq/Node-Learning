@@ -5,6 +5,8 @@ import sequelize from "./utils/database.js";
 import path from "path";
 import { Product } from "./model/product.js";
 import User from "./model/user.js";
+import Cart from "./model/cart.js";
+import CartItem from "./model/cartIteams.js";
 
 const app = express();
 
@@ -39,6 +41,10 @@ app.use((req, res) => {
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Product);
 
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
 //this will create the tables when app initializes
 (async function () {
   try {

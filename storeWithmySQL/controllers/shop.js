@@ -21,8 +21,22 @@ export const getCart = async (req, res, next) => {
 
 export const postCart = async (req, res, next) => {
   const prodId = req.body.prodId;
-  
-  Cart.addProduct(prodId, prod.price);
+
+  const fetchedCart = await req.user.getCart();
+  const cart = await fetchedCart.getProducts({ where: { id: prodId } });
+
+  let product;
+  if (cart.length > 0) {
+    product = cart[0];
+  }
+
+  let newQuantity = 1;
+  if (product) {
+  }
+
+  const prod = await Product.findByPk(prodId);
+
+  fetchedCart.addProduct(prod, { through: { quantity: newQuantity } });
 
   res.redirect("/cart");
 };
