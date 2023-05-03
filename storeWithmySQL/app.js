@@ -57,6 +57,8 @@ Product.belongsToMany(Cart, { through: CartItem });
       await User.create({ name: "Akhlaq", email: "test" });
     }
 
+    await userExists.createCart();
+
     //listing
     app.listen(3001, () => {
       console.log("server start on http://localhost:3001/");
