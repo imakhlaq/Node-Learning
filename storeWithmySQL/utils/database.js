@@ -1,21 +1,9 @@
-// import mysql from "mysql2";
+import { PrismaClient } from "@prisma/client";
 
-// const pool = mysql.createPool({
-//   host: "localhost",
-//   user: "root",
-//   database: "shop",
-//   password: "sBCA",
-// });
+let db;
 
-// export default pool.promise();
+if (db) {
+  db = new PrismaClient();
+}
 
-//new way with OREM
-
-import { Sequelize } from "sequelize";
-
-const sequelize = new Sequelize("shop", "root", "sBCA", {
-  dialect: "mysql",
-  host: "localhost",
-});
-
-export default sequelize;
+export default db;

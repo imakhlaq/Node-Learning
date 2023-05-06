@@ -1,5 +1,4 @@
 import { Product } from "../model/product.js";
-import { Admin } from "../model/admin.js";
 
 export const editProducts = async (req, res, next) => {
   const prodId = req.params.prodId;

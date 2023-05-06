@@ -64,6 +64,6 @@ Product.belongsToMany(Cart, { through: CartItem });
       console.log("server start on http://localhost:3001/");
     });
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
   }
 })();
