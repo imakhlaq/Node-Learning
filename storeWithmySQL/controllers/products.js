@@ -1,4 +1,4 @@
-import { Product } from "../model/product.js";
+import db from "../utils/database.js";
 
 export const getProduct = (req, res) => {
   //res.sendFile(path.join(__dirname, "views", "add-product.html"));
@@ -12,22 +12,19 @@ export const getProduct = (req, res) => {
 export const addProduct = async (req, res, next) => {
   const details = { ...req.body };
   try {
-    await req.user.createProduct({
-      title: details.title,
-      price: details.price,
-      imageUrl: details.imageUrl,
-      description: details.description,
+    const prodsData = await db.product.create({
+      data: {
+        title: details.title,
+        price: details.price,
+        imageUrl: details.imageUrl,
+        description: details.description,
+        user_id: req.user.id,
+      },
     });
 
-    // const data = await Product.create({
-    //   title: details.title,
-    //   price: details.price,
-    //   imageUrl: details.imageUrl,
-    //   description: details.description,
-    //   userID: req.user.id,
-    // });
+    console.log(prodsData);
   } catch (err) {
-    console.log(err, "--------------------");
+    console.log(err.message);
   }
 
   res.redirect("/");

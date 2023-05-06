@@ -1,5 +1,4 @@
-import { Product } from "../model/product.js";
-import Cart from "../model/cart.js";
+import db from "../utils/database.js";
 
 export const getCart = async (req, res, next) => {
   const fetchedCart = await req.user.getCart();
@@ -46,7 +45,9 @@ export const index = async (req, res, next) => {
 };
 
 export const products = async (req, res, next) => {
-  const products = await Product.findAll();
+  const products = await db.product.findMany();
+
+  console.log(products);
 
   res.render("shop/product-list", { path: "cart", products, path: "products" });
 };
@@ -55,7 +56,7 @@ export const productDetails = async (req, res, next) => {
   //extracting the book id
   const prodId = req.params.productId;
 
-  const prodDetails = await Product.findByPk(prodId);
+  const prodDetails = await db.product.findUnique({ where: { id: +prodId } });
 
   res.render("shop/product-details", { prodDetails, path: "details" });
 };

@@ -1,14 +1,10 @@
 import express from "express";
 import path from "path";
 
-// import adminRoutes from "./routes/admin.js";
-// import shopRoutes from "./routes/shop.js";
-// import sequelize from "./utils/database.js";
+import adminRoutes from "./routes/admin.js";
+import shopRoutes from "./routes/shop.js";
+import sequelize from "./utils/database.js";
 
-// import { Product } from "./model/product.js";
-// import User from "./model/user.js";
-// import Cart from "./model/cart.js";
-// import CartItem from "./model/cartIteams.js";
 import db from "./utils/database.js";
 
 const app = express();
@@ -28,13 +24,13 @@ app.use(async (req, res, next) => {
   const user = await db.user.findUnique({
     where: { id: 1 },
   });
-  console.log(user);
   req.user = user;
+
   next();
 });
 
-// app.use("/admin", adminRoutes);
-// app.use(shopRoutes);
+app.use("/admin", adminRoutes);
+app.use(shopRoutes);
 
 //handling 404
 app.use((req, res) => {

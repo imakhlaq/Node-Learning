@@ -1,4 +1,4 @@
-import { Product } from "../model/product.js";
+import db from "../utils/database.js";
 
 export const editProducts = async (req, res, next) => {
   const prodId = req.params.prodId;
@@ -34,7 +34,9 @@ export const updateProducts = async (req, res, next) => {
 };
 
 export const adminProducts = async (req, res, next) => {
-  const products = await req.user.getProducts();
+  const products = await db.product.findMany({
+    where: { user_id: req.user.id },
+  });
   //sending pug file instead of HTMl
   res.render("admin/products", {
     products,
@@ -46,8 +48,10 @@ export const adminProducts = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   const id = req.params.prodId;
 
-  await Product.destroy({
-    where: { id: id },
+  await db.product.delete({
+    where: {
+      id: +id,
+    },
   });
 
   res.redirect("/admin/products");
