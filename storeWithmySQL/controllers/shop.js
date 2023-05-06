@@ -1,37 +1,26 @@
 import db from "../utils/database.js";
 
 export const getCart = async (req, res, next) => {
-  const fetchedCart = await req.user.getCart();
+  const cartData = await db.cart.findMany({ where: { user_id: 1 } });
 
-  const cartData = fetchedCart.getProducts();
+  console.log(cartData);
 
-  res.render("shop/cart", { path: "cart", totalPrice, cartData });
+  res.render("shop/cart", { path: "cart", totalPrice: 0, cartData });
 };
 
 export const postCart = async (req, res, next) => {
   const prodId = req.body.prodId;
 
-  const fetchedCart = await req.user.getCart();
-  const cart = await fetchedCart.getProducts({ where: { id: prodId } });
-
-  let product;
-  if (cart.length > 0) {
-    product = cart[0];
-  }
-
-  let newQuantity = 1;
-  if (product) {
-    const oldQuantity = product.cartItem.quantity;
-    newQuantity = oldQuantity + 1;
-
-    await fetchedCart.addProduct(product, {
-      through: { quantity: newQuantity },
+  try {
+    await db.cart.create({
+      data: {
+        user_id: 1,
+        product_id: +prodId,
+      },
     });
+  } catch (err) {
+    console.log(err.message);
   }
-
-  const prod = await Product.findByPk(prodId);
-
-  fetchedCart.addProduct(prod, { through: { quantity: newQuantity } });
 
   res.redirect("/cart");
 };

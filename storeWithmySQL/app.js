@@ -1,10 +1,6 @@
 import express from "express";
 import path from "path";
-
-import adminRoutes from "./routes/admin.js";
-import shopRoutes from "./routes/shop.js";
-import sequelize from "./utils/database.js";
-
+import rootRouter from "./routes/rootRouter.js";
 import db from "./utils/database.js";
 
 const app = express();
@@ -24,13 +20,14 @@ app.use(async (req, res, next) => {
   const user = await db.user.findUnique({
     where: { id: 1 },
   });
+  console.log(user);
   req.user = user;
 
   next();
 });
 
-app.use("/admin", adminRoutes);
-app.use(shopRoutes);
+//one Root Router
+app.use(rootRouter);
 
 //handling 404
 app.use((req, res) => {

@@ -15,9 +15,9 @@ model User {
   email     String    @unique
   name      String
   products  Product[]
+  cart_id   Cart?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  cart      Cart?
 }
 
 model Product {
@@ -28,17 +28,16 @@ model Product {
   description String
   user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id     Int
-  cart        Cart[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  cart        Cart[]
 }
 
 model Cart {
-  id         Int      @id @default(autoincrement())
-  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
-  product_id Int
-  user       User     @relation(fields: [user_id], references: [id])
-  user_id    Int      @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  product   Product[]
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id   Int       @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

@@ -3,7 +3,7 @@ import db from "../utils/database.js";
 export const editProducts = async (req, res, next) => {
   const prodId = req.params.prodId;
 
-  const product = await Product.findByPk(prodId);
+  const product = await db.product.findUnique({ where: { id: +prodId } });
 
   res.render("admin/edit-product", { path: "edit-products", product });
 };
@@ -14,17 +14,13 @@ export const updateProducts = async (req, res, next) => {
   const data = req.body;
 
   try {
-    await Product.update(
-      {
-        title: data.title,
-        price: data.price,
-        imageUrl: data.imageUrl,
-        description: data.description,
+    await db.product.update({
+      where: {
+        id: +prodId,
       },
-      {
-        where: { id: prodId },
-      }
-    );
+      data: data,
+    });
+
     console.log("UPDATED");
   } catch (err) {
     console.log(err);
