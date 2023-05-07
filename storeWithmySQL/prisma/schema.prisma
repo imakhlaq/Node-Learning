@@ -18,6 +18,7 @@ model User {
   cart_id   Cart?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  order     Order?
 }
 
 model Product {
@@ -31,6 +32,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   cart        Cart[]
+  order       Order[]
 }
 
 model Cart {
@@ -42,4 +44,11 @@ model Cart {
   totalPrice Int       @default(0)
   updatedAt  DateTime  @updatedAt
   product    Product[]
+}
+
+model Order {
+  id      Int       @id @default(autoincrement())
+  user    User      @relation(fields: [user_id], references: [id])
+  user_id Int       @unique
+  product Product[]
 }

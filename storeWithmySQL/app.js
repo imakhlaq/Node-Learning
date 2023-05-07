@@ -20,9 +20,7 @@ app.use(async (req, res, next) => {
   const user = await db.user.findUnique({
     where: { id: 1 },
   });
-
   req.user = user;
-
   next();
 });
 

@@ -2,12 +2,12 @@ import db from "../utils/database.js";
 
 export const getCart = async (req, res, next) => {
   const { product } = await db.cart.findUnique({
-    where: { user_id: 1 },
+    where: { user_id: req.user.id },
     include: { product: true },
   });
 
   const data = await db.cart.findUnique({
-    where: { user_id: 1 },
+    where: { user_id: req.user.id },
     include: { product: true },
   });
 
@@ -26,7 +26,7 @@ export const deleteCartItem = async (req, res, next) => {
     //disconnect to remove the relation
     const deleteItem = await db.cart.update({
       where: {
-        user_id: 1,
+        user_id: req.user.id,
       },
       data: {
         product: {
@@ -50,12 +50,12 @@ export const postCart = async (req, res, next) => {
 
   try {
     // const product = await db.product.findUnique({ where: { id: +prodId } });
-    const cartExist = await db.cart.findUnique({ where: { id: 1 } });
+    const cartExist = await db.cart.findUnique({ where: { id: req.user.id } });
 
     if (!cartExist) {
       const data = await db.cart.create({
         data: {
-          user_id: 1,
+          user_id: req.user.id,
         },
       });
     }
@@ -63,7 +63,7 @@ export const postCart = async (req, res, next) => {
     //connect to add relation
 
     const data = await db.cart.update({
-      where: { user_id: 1 },
+      where: { user_id: req.user.id },
       data: {
         product: {
           connect: [{ id: +prodId }],
@@ -100,4 +100,58 @@ export const productDetails = async (req, res, next) => {
   res.render("shop/product-details", { prodDetails, path: "details" });
 };
 
-export const orderProducts = (req, res, next) => {};
+export const orderProducts = async (req, res, next) => {
+  try {
+    // const product = await db.product.findUnique({ where: { id: +prodId } });
+    const orderExist = await db.order.findUnique({
+      where: { id: req.user.id },
+    });
+
+    if (!orderExist) {
+      const order = await db.order.create({
+        data: {
+          user_id: req.user.id,
+        },
+      });
+    }
+
+    const { product } = await db.cart.findUnique({
+      where: { user_id: req.user.id },
+      include: { product: true },
+    });
+
+    //connect to add relation
+
+    const orders = await db.order.update({
+      where: { user_id: req.user.id },
+      data: {
+        product: {
+          connect: product.map((prod) => {
+            return { id: prod.id };
+          }),
+        },
+      },
+    });
+
+    await db.cart.update({
+      where: { id: req.user.id },
+      data: {
+        product: {
+          set: [],
+        },
+      },
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+  res.redirect("/orders");
+};
+
+export const getOrderProducts = async (req, res, next) => {
+  const { product } = await db.order.findUnique({
+    where: { user_id: req.user.id },
+    include: { product: true },
+  });
+  console.log(product);
+  res.render("./shop/order", { path: "order", product });
+};
