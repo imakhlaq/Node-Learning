@@ -6,13 +6,42 @@ export const getCart = async (req, res, next) => {
     include: { product: true },
   });
 
-  console.log(product);
+  const data = await db.cart.findUnique({
+    where: { user_id: 1 },
+    include: { product: true },
+  });
+
   res.render("shop/cart", {
     path: "cart",
     quantity: 0,
     totalPrice: 0,
     product,
   });
+};
+
+export const deleteCartItem = async (req, res, next) => {
+  const prodId = req.body.productId;
+
+  try {
+    const deleteItem = await db.cart.update({
+      where: {
+        user_id: 1,
+      },
+      data: {
+        product: {
+          disconnect: [{ id: +prodId }],
+        },
+      },
+      select: {
+        product: true,
+      },
+    });
+    console.log(deleteItem);
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  res.redirect("/cart");
 };
 
 export const postCart = async (req, res, next) => {
