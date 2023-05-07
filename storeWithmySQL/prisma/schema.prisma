@@ -21,7 +21,7 @@ model User {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int      @id @unique @default(autoincrement())
   title       String
   price       Decimal
   imageUrl    String
@@ -35,9 +35,9 @@ model Product {
 
 model Cart {
   id        Int       @id @default(autoincrement())
-  product   Product[]
   user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id   Int       @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  product   Product[]
 }

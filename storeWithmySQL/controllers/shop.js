@@ -1,21 +1,41 @@
 import db from "../utils/database.js";
 
 export const getCart = async (req, res, next) => {
-  const cartData = await db.cart.findMany({ where: { user_id: 1 } });
+  const { product } = await db.cart.findUnique({
+    where: { user_id: 1 },
+    include: { product: true },
+  });
 
-  console.log(cartData);
-
-  res.render("shop/cart", { path: "cart", totalPrice: 0, cartData });
+  console.log(product);
+  res.render("shop/cart", {
+    path: "cart",
+    quantity: 0,
+    totalPrice: 0,
+    product,
+  });
 };
 
 export const postCart = async (req, res, next) => {
   const prodId = req.body.prodId;
 
   try {
-    await db.cart.create({
+    // const product = await db.product.findUnique({ where: { id: +prodId } });
+    const cartExist = await db.cart.findUnique({ where: { id: 1 } });
+
+    if (!cartExist) {
+      const data = await db.cart.create({
+        data: {
+          user_id: 1,
+        },
+      });
+    }
+
+    const data = await db.cart.update({
+      where: { user_id: 1 },
       data: {
-        user_id: 1,
-        product_id: +prodId,
+        product: {
+          connect: [{ id: +prodId }],
+        },
       },
     });
   } catch (err) {
@@ -35,8 +55,6 @@ export const index = async (req, res, next) => {
 
 export const products = async (req, res, next) => {
   const products = await db.product.findMany();
-
-  console.log(products);
 
   res.render("shop/product-list", { path: "cart", products, path: "products" });
 };

@@ -21,8 +21,6 @@ export const addProduct = async (req, res, next) => {
         user_id: req.user.id,
       },
     });
-
-    console.log(prodsData);
   } catch (err) {
     console.log(err.message);
   }

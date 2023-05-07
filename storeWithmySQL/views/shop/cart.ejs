@@ -10,18 +10,29 @@
   <body>
     <%- include("../layouts/header.ejs") %>
     <main>
-      <% if(cartData.length>0) { %>
-      <ul>
-        <% cartData.forEach( p => { %>
-
-        <li><%=p.title %></li>
-
+      <% if (product.length > 0) { %>
+      <ul class="cart__item-list">
+        <% product.forEach(p => { %>
+        <li class="cart__item">
+          <h1><%= p.title %></h1>
+          <h2>Quantity: <%= quantity %></h2>
+          <form action="/cart-delete-item" method="POST">
+            <input type="hidden" value="<%= p.id %>" name="productId" />
+            <button class="btn danger" type="submit">Delete</button>
+          </form>
+        </li>
         <% }) %>
-        <h2>$ <%= totalPrice %></h2>
-        <% } else { %>
-        <h2>No Products in Cart</h2>
-        <% } %>
       </ul>
+      <hr />
+      <div class="centered">
+        <form action="/create-order" method="POST">
+          <button type="submit" class="btn">Order Now!</button>
+        </form>
+      </div>
+
+      <% } else { %>
+      <h1>No Products in Cart!</h1>
+      <% } %>
     </main>
   </body>
 </html>

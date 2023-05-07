@@ -43,6 +43,9 @@ CREATE TABLE "_CartToProduct" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Product_id_key" ON "Product"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Cart_user_id_key" ON "Cart"("user_id");
 
 -- CreateIndex
