@@ -23,6 +23,7 @@ export const deleteCartItem = async (req, res, next) => {
   const prodId = req.body.productId;
 
   try {
+    //disconnect to remove the relation
     const deleteItem = await db.cart.update({
       where: {
         user_id: 1,
@@ -58,6 +59,8 @@ export const postCart = async (req, res, next) => {
         },
       });
     }
+
+    //connect to add relation
 
     const data = await db.cart.update({
       where: { user_id: 1 },
@@ -96,3 +99,5 @@ export const productDetails = async (req, res, next) => {
 
   res.render("shop/product-details", { prodDetails, path: "details" });
 };
+
+export const orderProducts = (req, res, next) => {};

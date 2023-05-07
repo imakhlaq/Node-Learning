@@ -34,10 +34,12 @@ model Product {
 }
 
 model Cart {
-  id        Int       @id @default(autoincrement())
-  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id   Int       @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  product   Product[]
+  id         Int       @id @default(autoincrement())
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id    Int       @unique
+  createdAt  DateTime  @default(now())
+  qty        Int       @default(1)
+  totalPrice Int       @default(0)
+  updatedAt  DateTime  @updatedAt
+  product    Product[]
 }

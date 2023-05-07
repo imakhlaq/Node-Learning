@@ -15,7 +15,7 @@
         <% product.forEach(p => { %>
         <li class="cart__item">
           <h1><%= p.title %></h1>
-          <h2>Quantity: <%= quantity %></h2>
+          <p><%= p.description.split(".")[0] %></p>
           <form action="/cart-delete-item" method="POST">
             <input type="hidden" value="<%= p.id %>" name="productId" />
             <button class="btn danger" type="submit">Delete</button>
