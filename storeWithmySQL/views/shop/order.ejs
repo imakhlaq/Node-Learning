@@ -5,12 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/order.css" />
     <title>Cart</title>
   </head>
   <body>
     <%- include("../layouts/header.ejs") %>
     <main>
-      <h1>No orders!</h1>
+      <% if (orders.product.length <= 0) { %>
+      <h1>Nothing there!</h1>
+      <% } else { %>
+      <ul class="class_container">
+        <li>
+          <h1 class="order_id"># <%= orders.id %></h1>
+          <ul class="orders">
+            <% orders.product.forEach(product => { %>
+            <div>
+              <li class="title"><%= product.title %></li>
+              <p class="price"><%= product.price %></p>
+              <p class="time"><%= product. %></p>
+            </div>
+            <% }); %>
+          </ul>
+        </li>
+      </ul>
+      <% } %>
     </main>
   </body>
 </html>

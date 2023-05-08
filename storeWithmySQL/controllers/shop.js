@@ -102,37 +102,23 @@ export const productDetails = async (req, res, next) => {
 
 export const orderProducts = async (req, res, next) => {
   try {
-    // const product = await db.product.findUnique({ where: { id: +prodId } });
-    const orderExist = await db.order.findUnique({
-      where: { id: req.user.id },
-    });
-
-    if (!orderExist) {
-      const order = await db.order.create({
-        data: {
-          user_id: req.user.id,
-        },
-      });
-    }
-
     const { product } = await db.cart.findUnique({
       where: { user_id: req.user.id },
       include: { product: true },
     });
-
     //connect to add relation
-
-    const orders = await db.order.update({
-      where: { user_id: req.user.id },
+    const orders = await db.order.create({
       data: {
+        user_id: req.user.id,
         product: {
-          connect: product.map((prod) => {
-            return { id: prod.id };
-          }),
+          connect: product.map((prod) => ({ id: prod.id })),
         },
       },
+      include: {
+        product: true,
+      },
     });
-
+    console.log(orders);
     await db.cart.update({
       where: { id: req.user.id },
       data: {
@@ -144,14 +130,20 @@ export const orderProducts = async (req, res, next) => {
   } catch (err) {
     console.log(err.message);
   }
+
   res.redirect("/orders");
 };
 
 export const getOrderProducts = async (req, res, next) => {
-  const { product } = await db.order.findUnique({
-    where: { user_id: req.user.id },
-    include: { product: true },
-  });
-  console.log(product);
-  res.render("./shop/order", { path: "order", product });
+  try {
+    const orders = await db.order.findFirst({
+      include: { product: true },
+    });
+
+    res.render("./shop/order", { path: "order", orders });
+
+    console.log(orders);
+  } catch (err) {
+    console.log(err.message);
+  }
 };

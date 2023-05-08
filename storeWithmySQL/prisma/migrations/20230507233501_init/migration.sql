@@ -65,9 +65,6 @@ CREATE UNIQUE INDEX "Product_id_key" ON "Product"("id");
 CREATE UNIQUE INDEX "Cart_user_id_key" ON "Cart"("user_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Order_user_id_key" ON "Order"("user_id");
-
--- CreateIndex
 CREATE UNIQUE INDEX "_CartToProduct_AB_unique" ON "_CartToProduct"("A", "B");
 
 -- CreateIndex

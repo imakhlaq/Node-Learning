@@ -1,0 +1,21 @@
+.class_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.order_id {
+  color: rgb(174, 253, 121);
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+.orders li {
+  list-style-type: none;
+}
+
+.title {
+  font-size: 2rem;
+}
