@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import rootRouter from './routes/rootRouter.js';
 import db from './utils/database.js';
+import { log } from 'console';
 
 const app = express();
 
@@ -18,9 +19,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(async (req, res, next) => {
   const user = await db.user.findUnique({
-    where: { id: 1 },
+    where: { id: 2 },
   });
   req.user = user;
+
   next();
 });
 

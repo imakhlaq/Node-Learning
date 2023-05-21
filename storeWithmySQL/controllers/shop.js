@@ -6,11 +6,6 @@ export const getCart = async (req, res, next) => {
     include: { product: true },
   });
 
-  const data = await db.cart.findUnique({
-    where: { user_id: req.user.id },
-    include: { product: true },
-  });
-
   res.render('shop/cart', {
     path: 'cart',
     quantity: 0,
@@ -37,7 +32,6 @@ export const deleteCartItem = async (req, res, next) => {
         product: true,
       },
     });
-    console.log(deleteItem);
   } catch (err) {
     console.log(err.message);
   }
@@ -61,7 +55,6 @@ export const postCart = async (req, res, next) => {
     }
 
     //connect to add relation
-
     const data = await db.cart.update({
       where: { user_id: req.user.id },
       data: {
