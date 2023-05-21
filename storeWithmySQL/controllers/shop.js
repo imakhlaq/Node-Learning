@@ -1,4 +1,4 @@
-import db from "../utils/database.js";
+import db from '../utils/database.js';
 
 export const getCart = async (req, res, next) => {
   const { product } = await db.cart.findUnique({
@@ -11,8 +11,8 @@ export const getCart = async (req, res, next) => {
     include: { product: true },
   });
 
-  res.render("shop/cart", {
-    path: "cart",
+  res.render('shop/cart', {
+    path: 'cart',
     quantity: 0,
     totalPrice: 0,
     product,
@@ -42,7 +42,7 @@ export const deleteCartItem = async (req, res, next) => {
     console.log(err.message);
   }
 
-  res.redirect("/cart");
+  res.redirect('/cart');
 };
 
 export const postCart = async (req, res, next) => {
@@ -74,7 +74,7 @@ export const postCart = async (req, res, next) => {
     console.log(err.message);
   }
 
-  res.redirect("/cart");
+  res.redirect('/cart');
 };
 
 export const index = async (req, res, next) => {
@@ -82,13 +82,13 @@ export const index = async (req, res, next) => {
   // res.sendFile(path.join(__dirname, "views", "shop.html"));
 
   //sending pug file instead of HTMl
-  res.render("shop/index", { path: "shop" });
+  res.render('shop/index', { path: 'shop' });
 };
 
 export const products = async (req, res, next) => {
   const products = await db.product.findMany();
 
-  res.render("shop/product-list", { path: "cart", products, path: "products" });
+  res.render('shop/product-list', { path: 'cart', products, path: 'products' });
 };
 
 export const productDetails = async (req, res, next) => {
@@ -97,7 +97,7 @@ export const productDetails = async (req, res, next) => {
 
   const prodDetails = await db.product.findUnique({ where: { id: +prodId } });
 
-  res.render("shop/product-details", { prodDetails, path: "details" });
+  res.render('shop/product-details', { prodDetails, path: 'details' });
 };
 
 export const orderProducts = async (req, res, next) => {
@@ -118,7 +118,7 @@ export const orderProducts = async (req, res, next) => {
         product: true,
       },
     });
-    console.log(orders);
+
     await db.cart.update({
       where: { id: req.user.id },
       data: {
@@ -131,18 +131,20 @@ export const orderProducts = async (req, res, next) => {
     console.log(err.message);
   }
 
-  res.redirect("/orders");
+  res.redirect('/orders');
 };
 
 export const getOrderProducts = async (req, res, next) => {
   try {
-    const orders = await db.order.findFirst({
+    const orders = await db.order.findMany({
+      where: { user_id: req.user.id },
+      orderBy: {
+        id: 'desc',
+      },
       include: { product: true },
     });
 
-    res.render("./shop/order", { path: "order", orders });
-
-    console.log(orders);
+    res.render('./shop/order', { path: 'order', orders });
   } catch (err) {
     console.log(err.message);
   }

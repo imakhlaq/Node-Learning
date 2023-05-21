@@ -47,8 +47,9 @@ model Cart {
 }
 
 model Order {
-  id      Int       @id @default(autoincrement())
-  user    User      @relation(fields: [user_id], references: [id])
-  user_id Int
-  product Product[]
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   Int
+  product   Product[] @relation
+  createdAt DateTime  @default(now())
 }

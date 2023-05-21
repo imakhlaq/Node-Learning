@@ -11,18 +11,26 @@
   <body>
     <%- include("../layouts/header.ejs") %>
     <main>
-      <% if (orders.product.length <= 0) { %>
+      <% if (orders.length <= 0) { %>
       <h1>Nothing there!</h1>
       <% } else { %>
       <ul class="class_container">
         <li>
-          <h1 class="order_id"># <%= orders.id %></h1>
           <ul class="orders">
-            <% orders.product.forEach(product => { %>
+            <% orders.forEach(order => { %>
             <div>
-              <li class="title"><%= product.title %></li>
-              <p class="price"><%= product.price %></p>
-              <p class="time"><%= product. %></p>
+              <div class="ordertitle">
+                <h1 class="order_id"># <%= order.id %></h1>
+                <p>
+                  <%= new Date(order.createdAt).toLocaleDateString("en-US") %>
+                </p>
+              </div>
+
+              <% order.product.forEach(products => { %>
+              <li class="title"><%= products.title %></li>
+              <p class="price">$ <%= products.price %></p>
+
+              <% }); %>
             </div>
             <% }); %>
           </ul>
